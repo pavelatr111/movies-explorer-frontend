@@ -1,0 +1,38 @@
+.header-register {
+  max-width: 396px;
+  margin: 70px auto 0;
+}
+.header-register__logo {
+  size: 38px 38px;
+  margin-bottom: 40px;
+}
+.header-register__title {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 29px;
+  margin: 0;
+  margin-bottom: 40px;
+  color: #ffffff;
+}
+
+@media screen and (max-width: 768px) {
+  .header-register{
+    margin: 232px auto 0;
+  }
+}
+@media screen and (max-width: 520px) {
+  .header-register{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .header-register__logo{
+    margin-bottom: 50px;
+  }
+  .header-register__title{
+    margin-bottom: 80px;
+  }
+}
