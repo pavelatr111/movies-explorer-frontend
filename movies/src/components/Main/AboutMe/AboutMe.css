@@ -49,7 +49,7 @@
   color: #ffffff;
 }
 .about-me__obout-text {
-  font-family: "Inter";
+  font-family: "Inter", "Arial", sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 12px;
@@ -69,7 +69,7 @@
   margin-right: 20px;
 }
 .about-me__url {
-  font-family: "Inter";
+  font-family: "Inter", "Arial", sans-serif;
   font-style: normal;
   font-weight: 500;
   font-size: 14px;

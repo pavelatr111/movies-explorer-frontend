@@ -24,7 +24,7 @@
   border: 1px solid rgba(66, 66, 66, 1);
   border-radius: 5px;
   margin: 50px auto 80px;
-  font-family: "Inter";
+  font-family: "Inter", "Arial", sans-serif;
   font-style: normal;
   font-weight: 500;
   font-size: 12px;
