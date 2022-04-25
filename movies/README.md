@@ -68,3 +68,23 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+# Фронтенд дипломного проекта Яндекс.Практикум.
+
+Сервис по поиску фильмов, по запросу  и сохранить в личном кабинете 
+
+## Технологии
+1. html5.
+2. css3.
+3. методология web-разработки по БЭМ.
+4. grid layout.
+5. JavaScript (ES6).
+6. React (Create Reacte App).
+
+[Домен гитхаб (бэкенд)]-(https://github.com/pavelatr111/movies-explorer-api.git);
+[Домен гитхаб (фронтенд)]-(https://github.com/pavelatr111/movies-explorer-frontend);
+
+[Домен (фронтенд)]-(https://pavelpavlov.nomoredomains.xyz/saved-movies);
+
+
+
