@@ -61,7 +61,7 @@ class Auth {
 }
 
 const auth = new Auth({
-    url: "http://localhost:3001",
+    url: "https://api.pavelpavlov.nomoredomains.xyz",
 })
 
 export default auth
