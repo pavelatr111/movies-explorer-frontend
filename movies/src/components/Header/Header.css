@@ -1,0 +1,110 @@
+.header {
+  max-width: calc(100% - 140px);
+  /* border-bottom: 1px solid rgba(84, 84, 84, 0.7); */
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* border-bottom: 1px solid #000000; */
+  box-sizing: border-box;
+  padding: 18px 0 18px;
+}
+.header__logo {
+  width: 38px;
+  height: 38px;
+  /* margin: 18px 0 18px; */
+}
+
+.header__navigation {
+  /* max-width: 212px; */
+  max-height: 18px;
+  display: flex;
+  text-align: right;
+  padding-left: 90px;
+}
+
+.header__icon-profile {
+  height: 14px;
+  width: 12px;
+  padding: 9px 7px 9px 12px;
+}
+
+.header__navigation-link {
+  padding: 0;
+  color: rgba(255, 255, 255, 1);
+  background-color: rgba(20, 20, 20);
+  font-family: "Inter", "Arial", sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 138%;
+  border: none;
+  text-align: right;
+}
+.header__navigation-link:hover {
+  opacity: 0.8;
+}
+
+.header__navigation-link:first-of-type {
+  padding-right: 16px;
+}
+
+.header__profile-button {
+  max-width: 100px;
+  align-items: center;
+  padding: 0;
+  background-color: rgba(20, 20, 20);
+  border: 2px solid rgba(170, 170, 170, 0.2);
+  /* border: 2px solid #aaaaaa; */
+  box-sizing: border-box;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+}
+
+.header__profile-button:hover {
+  opacity: 0.8;
+}
+.header__button-text {
+  font-family: "Inter", "Arial", sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 114%;
+  color: rgba(255, 255, 255, 1);
+  margin: 0;
+  margin-right: 12px;
+}
+.header__sidebar{
+  background-image: url(../../images/iconSideBar.svg);
+  background-size: contain;
+  width: 44px;
+  height: 44px;
+  background-color: inherit;
+  border: none;
+  padding: 0;
+  display: none;
+}
+.header__sidebar:hover{
+  opacity: 0.8;
+}
+@media screen and (max-width: 768px) {
+  .header{
+    max-width: calc(100% - 60px);
+    padding: 15px 0 15px;
+  }
+  .header__navigation{
+    display: none;
+  }
+  .header__profile-button{
+    display: none;
+  }
+  .header__sidebar{
+    display: block;
+  }
+}
+@media screen and (max-width: 320px) {
+  .header{
+    max-width: calc(100% - 28px);
+  }
+}

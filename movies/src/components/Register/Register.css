@@ -1,0 +1,126 @@
+.register__form {
+  max-width: 396px;
+  /* padding: ; */
+  width: 83%;
+  margin: auto;
+  text-align: center;
+}
+.register__lable-input {
+  margin-bottom: 0px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  text-align: start;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 12px;
+  color: #8b8b8b;
+
+  margin-bottom: 24px;
+}
+
+.register__lable-input:last-of-type {
+  margin-bottom: 0px;
+}
+.register__form-input {
+  /* max-width: 396px; */
+  width: 100%;
+  padding: 0;
+  padding-bottom: 10px;
+  padding-top: 5px;
+  margin: 0;
+  border: none;
+  border-bottom: 1px solid rgba(66, 66, 66, 1);
+  font-family: "Inter", "Arial", sans-serif;
+  font-style: normal;
+  font-size: 14px;
+  line-height: 17px;
+  background-color: inherit;
+  position: relative;
+  color: white;
+  outline: none;
+}
+
+.register__form-input:focus {
+  border-bottom: 1px solid rgba(66, 133, 244, 1);
+  font-weight: 500;
+}
+.register__form-input_unactiv{
+  color: rgba(238, 52, 101, 1);
+}
+.register__error {
+  color: rgba(238, 52, 101, 1);
+  font-size: 10px;
+  line-height: 12px;
+  padding-top: 6px;
+}
+
+.register__button {
+  max-width: 396px;
+  width: 100%;
+  height: 45px;
+  font-family: "Inter", "Arial", sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+  color: #fff;
+  background-color: #4285f4;
+  border: none;
+  border-radius: 2px;
+  margin: 152px 0 15px;
+  padding: 0;
+  cursor: pointer;
+}
+
+.register__button:hover {
+  opacity: 0.8;
+}
+.register__button_disablid {
+  opacity: 0.3;
+}
+
+.register__signin {
+  font-family: "Inter", "Arial", sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 121%;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(139, 139, 139, 1);
+  margin-bottom: 70px;
+}
+
+.register__signin p {
+  margin: 0;
+  margin-right: 6px;
+}
+.register__login-link {
+  font-family: "Inter", "Arial", sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 121%;
+  text-align: center;
+  color: rgba(66, 133, 244, 1);
+  text-decoration: none;
+}
+
+.register__login-link:hover {
+  opacity: 0.8;
+}
+
+@media screen and (max-width: 520px) {
+  .register__button {
+    margin-top: 240px;
+  }
+  .register__login-link {
+    font-size: 12px;
+    line-height: 15px;
+  }
+}
