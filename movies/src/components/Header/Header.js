@@ -18,8 +18,8 @@ function Header(props) {
                 <button className="header__profile-button">
                     <img className="header__icon-profile" src={iconProfile} alt="иконка профайла" />
                     <Link to="/profile" className="header__button-text">Аккаунт</Link>
-                </button>
-                <button className="header__sidebar" type="button" onClick={props.openNavigation}></button>
+                </button><button className="header__sidebar" type="button" onClick={props.openNavigation}></button>
+                
         </header>
     )
 

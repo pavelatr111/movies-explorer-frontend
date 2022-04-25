@@ -1,19 +1,15 @@
-import Footer from "../Footer/Footer"
-import Header from "../Header/Header"
-import MoviesCardList from "../Movies/MoviesCardList/MoviesCardList"
-import SearchForm from "../Movies/SearchForm/SearchForm"
+import Movies from '../Movies/Movies';
 
 function SavedMovies(props) {
     return (
         <>
-            <Header 
-            openNavigation={props.openNavigation} 
+            <Movies
+                openNavigation={props.openNavigation}
+                movies={props.movies}
+                width={props.width}
+                handleMovieDelete={props.handleMovieDelete}
+                // savedMovies={props.savedMovies}
             />
-            <main className="content">
-                <SearchForm/>
-                <MoviesCardList/>
-            </main>
-            <Footer/>
         </>
     )
 }

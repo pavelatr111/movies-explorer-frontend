@@ -1,9 +1,10 @@
 
 import React from 'react';
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import RegisterHeader from '../Register/RegisterHeader/RegisterHeader';
 import './Login.css';
 import { useFormValidation } from "../../hooks/useFormValidation";
+import auth from '../../utils/Auth';
 
 function Login(props) {
   const { values, handleChange, setValues, errors, isValid, isValidInput } = useFormValidation();
@@ -15,9 +16,19 @@ function Login(props) {
   function handleSubmit(e) {
     e.preventDefault()
 
-    props.handleUpdateUser({
-      email: values.email,
-      password: values.password
+    auth.login(values.email, values.password).then((res) => {
+      console.log(res);
+      if(res?.jwt) {
+        setValues({
+          email: '',
+          password: ''
+        })
+        localStorage.setItem('jwt', res?.jwt)
+        props.handleLogin()
+        props.history.push('/movies')
+      }
+    }).catch(err => {
+      console.log(err)
     })
   }
 
@@ -72,4 +83,4 @@ function Login(props) {
   )
 
 }
-export default Login;
+export default withRouter(Login);
