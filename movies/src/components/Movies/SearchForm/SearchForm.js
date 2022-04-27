@@ -5,30 +5,33 @@ import './SearchForm.css'
 
 function SearchForm(props) {
     const [errorText, setErrorText] = useState("");
+    const [disabledSearch, setDisabledSearch] = useState(false)
 
-    const { values, setValues, handleChange, isValid } = useFormValidation();
+    const { values, setValues, handleChange, isValid, setIsvalid } = useFormValidation();
     const location = useLocation();
     const storeKey = `search${location.pathname}`;
 
     useEffect(() => {
         const search = JSON.parse(localStorage.getItem(storeKey));
         if (search) {
-            setValues(search);
+            // setValues(search);
             props.searchMovies(search);
         }
     }, []);
 
     const handleSearchMovies = (e) => {
         e.preventDefault();
-        props.setIsLoading(true)
         if (!isValid) {
-            props.setIsLoading(false) 
+            // props.setIsLoading(false) 
             setErrorText("Нужно ввеcти ключевое слово.")
         } else {
+            props.setIsLoading(true)
+            setDisabledSearch(true)
             setTimeout(() => {
-                props.setIsLoading(false) 
+                props.setIsLoading(false)
+                setDisabledSearch(false)
             }, 1000)
-            
+
             props.searchMovies(values);
             localStorage.setItem(storeKey, JSON.stringify(values));
         }
@@ -60,7 +63,7 @@ function SearchForm(props) {
                     </input>
                     <span className="search__form-error" id="search-movies-error">{isValid ? "" : `${errorText}`}</span>
                 </label>
-                <button className={`search__button ${!isValid && "search__button_disablid"}`} disabled={props.isLoading} type="submit">Найти</button>
+                <button className={`search__button ${(!isValid || disabledSearch) && "search__button_disablid"}`} disabled={disabledSearch} type="submit">Найти</button>
             </form>
             <div className="search__switch">
                 <input type="checkbox" id="movie" name="check" onChange={handleChange} checked={values.check || false}></input>

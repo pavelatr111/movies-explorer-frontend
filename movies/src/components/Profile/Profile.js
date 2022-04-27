@@ -1,5 +1,5 @@
 // import { Link } from "react-router-dom";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import { useFormValidation } from "../../hooks/useFormValidation";
 import Header from "../Header/Header";
@@ -8,33 +8,37 @@ import './Profile.css';
 
 function Profile(props) {
 
-  const { values, handleChange, errors, isValid, setValues} = useFormValidation();
-
   const currentContext = useContext(CurrentUserContext)
-  console.log(currentContext);
+  const nameRef = useRef("")
+  const emailRef = useRef("")
 
+  const { values, handleChange, errors, isValid, resetFrom, setValues } = useFormValidation({
+    name: nameRef.current.value,
+    email: emailRef.current.value
+  });
+
+  // console.log(currentContext);
   const [isSameUserData, setIsSameUserData] = useState(true);
 
   useEffect(() => {
-    setIsSameUserData(values.name === currentContext.name && values.email === currentContext.email);
+    setIsSameUserData(nameRef.current.value === currentContext.name && emailRef.current.value === currentContext.email);
   }, [values.name, values.email, currentContext.name, currentContext.email]);
 
-//   React.useEffect(() => {
-//     setValues(currentContext)
-// }, [currentContext]); 
-  
   function handleSubmit(e) {
     // Запрещаем браузеру переходить по адресу формы
     e.preventDefault();
-
+    const name = nameRef.current.value;
+    const email = emailRef.current.value;
     // Передаём значения управляемых компонентов во внешний обработчик
-    props.handleUpdateUser(values.name, values.email);
-}
+    props.handleUpdateUser(name, email);
+    props.setCurrentUser(name, email)
+    resetFrom()
+  }
 
 
   return (
     <>
-      <Header openNavigation={props.openNavigation}/>
+      <Header openNavigation={props.openNavigation} />
       <section className="profile">
         <div className="profile__container">
           <h1 className="profile__title">Привет,{currentContext.name}!</h1>
@@ -48,10 +52,10 @@ function Profile(props) {
                 maxLength="30"
                 required
                 placeholder="Введите Имя"
+                ref={nameRef}
                 onChange={handleChange}
-                value={values.name || currentContext.name}
-                // defaultValue={currentContext.name}
-
+                // value={values.name || ""}
+                defaultValue={currentContext.name}
               />
             </label>
             <span className="profile__error" id="name-error">
@@ -66,18 +70,24 @@ function Profile(props) {
                 maxLength="40"
                 required
                 placeholder="Введите E-mail"
+                ref={emailRef}
                 onChange={handleChange}
-                value={values.email || currentContext.email}
-                // defaultValue={currentContext.email}
+                // value={values.email || ""}
+                // value={emailRef.current.value}
+                defaultValue={currentContext.email}
               />
             </label>
             <span className="profile__error" id="name-error">
               {errors.email || ""}
             </span>
-            <button type="submit" className={`profile__button profile__button_edit ${(!isValid || isSameUserData) && "profile__button_disablid"}`}  disabled={(!isValid || isSameUserData)}>
+            <div className="profile__buttons">
+            <button type="submit" className={`profile__button profile__button_edit ${(!isValid || isSameUserData) && "profile__button_disablid"}`} disabled={(!isValid || isSameUserData)}>
               Редактировать
             </button>
+            {props.profileRequest ?
+              <span className="profile__edit-ok">Профиль успешно обновлен</span> : ""}
             <button type="submit" className="profile__button profile__button_exit" onClick={props.handleSignOut}>Выйти из аккаунта</button>
+            </div>
           </form>
         </div>
       </section>

@@ -46,10 +46,10 @@ function Movies(props) {
     }, [filter, props.movies]);
 
     useEffect(() => {
-        if (props.width > 1279) {
+        if (props.width >= 1280) {
             setShowMovies(12);
             setAddMovies(3)
-        } else if (props.width > 767) {
+        } else if (props.width >= 768) {
             setShowMovies(8)
             setAddMovies(2)
         } else {

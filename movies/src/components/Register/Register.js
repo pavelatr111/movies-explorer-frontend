@@ -7,7 +7,7 @@ import auth from "../../utils/Auth";
 
 function Register(props) {
 
-  const { values, handleChange, errors, isValid, isValidInput } = useFormValidation();
+  const { values, handleChange, errors, isValid, isValidInput, setValues } = useFormValidation();
   const [registerError, setRegisterError] = useState("")
 
   // React.useEffect(() => {
@@ -15,16 +15,34 @@ function Register(props) {
   // },[ ])
   function handleSubmit(e) {
     e.preventDefault()
-
-    auth.register(values.email, values.password, values.name).then((res) => {
-      console.log(res);
-      if (res.data.email) {
-        props.history.push('/signin')
-      }
-    }).catch(err => {
-      console.log(err)
-      setRegisterError("При регистрации произошла ошибка")
-    })
+    props.setDisableButton(true);
+    auth.register(values.email, values.password, values.name)
+      .then((res) => {
+        console.log(res);
+        auth.login(values.email, values.password).then((res) => {
+          console.log(res);
+          if(res?.jwt) {
+            setValues({
+              email: '',
+              password: ''
+            })
+            localStorage.setItem('jwt', res?.jwt)
+            props.handleLogin()
+            props.history.push('/movies')
+          }
+        }).catch(err => {
+          console.log(err)
+        })
+        // if (res.data.email) {
+        //   props.history.push('/signin')
+        // }
+      }).catch(err => {
+        console.log(err)
+        setRegisterError("При регистрации произошла ошибка")
+      })
+      .finally(() => {
+        props.setDisableButton(false);
+      })
   }
 
   return (
@@ -85,7 +103,7 @@ function Register(props) {
             </span>
           </label>
           <div className="refister__buttons">
-            <button type="submit" className={`register__button ${!isValid && "register__button_disablid"}`} disabled={!isValid}>
+            <button type="submit" className={`register__button ${(!isValid || props.disableButton) && "register__button_disablid"}`} disabled={!isValid || props.disableButton}>
               Зарегистрироваться
             </button>
             <span className="register__error-message">{registerError}</span>

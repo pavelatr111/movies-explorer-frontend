@@ -32,7 +32,7 @@ class MainApi {
         year: movie.year || "Нет данных",
         description: movie.description || " ",
         image: `https://api.nomoreparties.co${movie.image.url}`,
-        trailerLink: movie.trailerLink || "",
+        trailerLink: movie.trailerLink || " ",
         thumbnail: `https://api.nomoreparties.co${movie.image.formats.thumbnail.url }`,
         movieId:  movie.id,
         nameRU: movie.nameRU,
@@ -81,7 +81,7 @@ class MainApi {
 
 }
 const mainApi = new MainApi({
-  url: "https://api.pavelpavlov.nomoredomains.xyz",
+  url: 'http://localhost:3000',
   headers: {
       "Content-Type": "application/json"
   }

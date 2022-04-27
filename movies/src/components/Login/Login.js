@@ -9,13 +9,10 @@ import auth from '../../utils/Auth';
 function Login(props) {
   const { values, handleChange, setValues, errors, isValid, isValidInput } = useFormValidation();
 
-  // React.useEffect(() => {
-  //  setValues({...values, name: values.name, email: values.email, password: values.password});
-  // },[ ])
 
   function handleSubmit(e) {
     e.preventDefault()
-
+    props.setDisableButton(true);
     auth.login(values.email, values.password).then((res) => {
       console.log(res);
       if(res?.jwt) {
@@ -29,6 +26,9 @@ function Login(props) {
       }
     }).catch(err => {
       console.log(err)
+    })
+    .finally(() => {
+      props.setDisableButton(false);
     })
   }
 
@@ -70,7 +70,7 @@ function Login(props) {
               {errors.password || ""}
             </span>
           </label>
-          <button type="submit" className={`login__button ${!isValid && "login__button_disablid"}`} disabled={!isValid}>
+          <button type="submit" className={`login__button ${(!isValid || props.disableButton) && "login__button_disablid"}`} disabled={props.disableButton}>
             Войти
           </button>
           <div className="login__signin">

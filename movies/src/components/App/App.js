@@ -15,6 +15,7 @@ import Preloader from '../Movies/Preloader/Preloader';
 import ProtectedRoute from '../ProtectedRoute';
 import auth from '../../utils/Auth';
 import mainApi from '../../utils/MainApi';
+import ProtectedRouteAuth from '../ProtectedRouteAuth';
 
 
 
@@ -32,6 +33,11 @@ function App(props) {
   const [width, setWidth] = React.useState(window.innerWidth)
   //стейт логирования
   const [loggedIn, setLoggedIn] = useState(false)
+
+  const [profileRequest, setProfileRequest] = useState(false)
+
+  const [disableButton, setDisableButton] = useState(false);
+
 
 
 
@@ -81,6 +87,7 @@ function App(props) {
       })
       .catch((err) => {
         console.log(err)
+        // saveMovieError("")
       })
   }, [currentUser, loggedIn]);
 
@@ -99,12 +106,14 @@ function App(props) {
   }, [savedMovies]);
 
   //изменение данных юзера
-  function handleUpdateUser(user) {
-    mainApi.updateUser(user.name, user.email)
+  function handleUpdateUser(name, email) {
+    mainApi.updateUser(name, email)
       .then(data => {
         setCurrentUser(data)
+        setProfileRequest(true)
       })
       .catch((err) => {
+        setProfileRequest(true)
         console.log(err)
       })
   }
@@ -210,13 +219,30 @@ function App(props) {
             component={Profile}
             openNavigation={handleOpenNavigation}
             handleSignOut={handleSignOut}
+            profileRequest={profileRequest}
+            setCurrentUser={setCurrentUser}
           />
-          <Route path="/signin">
+          <ProtectedRouteAuth path="/signin"
+            loggedIn={loggedIn}
+            component={Login}
+            handleLogin={handleLogin} 
+            disableButton={disableButton}
+            setDisableButton={setDisableButton}
+          />
+          <ProtectedRouteAuth path="/signup"
+            loggedIn={loggedIn}
+            component={Register}
+            handleLogin={handleLogin} 
+            disableButton={disableButton}
+            setDisableButton={setDisableButton}
+          />
+
+          {/* <Route path="/signin">
             <Login handleLogin={handleLogin} />
-          </Route>
-          <Route path="/signup">
+          </Route> */}
+          {/* <Route path="/signup">
             <Register />
-          </Route>
+          </Route> */}
           <Route path="*">
             <PageNotFound />
           </Route>
