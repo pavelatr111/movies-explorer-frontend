@@ -80,9 +80,26 @@
   padding-right: 16px;
 }
 
+.main-header__sidebar{
+  background-image: url(../../../images/iconSideBar.svg);
+  background-size: contain;
+  width: 44px;
+  height: 44px;
+  background-color: inherit;
+  border: none;
+  padding: 0;
+  display: none;
+}
+.main-header__sidebar:hover{
+  opacity: 0.8;
+}
+
 @media screen and (max-width: 768px) {
   .main-header__content {
     width: calc(100% - 60px);
+  }
+  .main-header__sidebar{
+    display: block;
   }
   .main-header__navigation{
     display: none;

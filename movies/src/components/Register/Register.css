@@ -56,6 +56,15 @@
   padding-top: 6px;
 }
 
+.refister__buttons{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  position: relative;
+}
+
 .register__button {
   max-width: 396px;
   width: 100%;
@@ -73,13 +82,26 @@
   margin: 152px 0 15px;
   padding: 0;
   cursor: pointer;
+  
 }
+
 
 .register__button:hover {
   opacity: 0.8;
 }
 .register__button_disablid {
   opacity: 0.3;
+}
+.register__error-message{
+  margin: 0;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 16px;
+  color:#EE3465;
+  position: absolute;
+  top: 40%;
+  width: 100%;
+  text-align: center;
 }
 
 .register__signin {

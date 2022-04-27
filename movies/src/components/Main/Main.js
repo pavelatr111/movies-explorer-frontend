@@ -8,10 +8,10 @@ import Portfolio from './Portfolio/Portfolio';
 import Promo from './Promo/Promo';
 import Techs from './Techs/Techs';
 
-const Main = () => {
+const Main = (props) => {
     return (
         <>
-            <MainHeader />
+            <MainHeader loggedIn={props.loggedIn} openNavigation={props.openNavigation}/>
             <Promo />
             <AboutProject/>
             <Techs/>

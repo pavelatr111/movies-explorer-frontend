@@ -1,40 +1,60 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Route } from 'react-router-dom'
 import './MoviesCard.css'
-// import Pic from '../../../images/pic 1.jpeg'
-
 
 const MoviesCard = (props) => {
 
-  const [isLiked, setIsLiked] = React.useState(false);
+  // useEffect(() => {
+  //   checkIsSaved()
+  // }, [])
+
+  // const checkIsSaved = (props.movie) => {
+  //   const searchMovie = props.movie.find(item => item.movieId === props.movie.id)
+  //   searchMovie ? setIsLiked(true) : setIsLiked(false)
+  // }
 
   function likeClick() {
-    setIsLiked(true)
+    props.handleSaveMovie(props.movie)
+    // setIsLiked(true)
   }
 
-  function deleteClick() {
-    setIsLiked(false)
+  // function deleteLike() {
+  //   // setIsLiked(false)
+  // }
+
+  function deleteMovie() {
+    props.handleMovieDelete(props.movie)
   }
+
+  const handleTrailerOpenClick = () => {
+    window.open(`${props.movie.trailerLink}`, 'trailer');
+  }
+
+  const movieTime = `${Math.floor(props.movie.duration / 60)}ч ${props.movie.duration % 60}м`
+
   return (
     <div className="card">
       <Route path="/movies">
-       { isLiked ? <button className="card__check-button"onClick={deleteClick}></button> : <button className="card__save-button "onClick={likeClick}>Сохранить</button>}
+        {props.movie.saved
+          ? <button className="card__check-button" onClick={deleteMovie}></button>
+          : <button className="card__save-button " onClick={likeClick}>Сохранить</button>}
         {/* <button className="card__save-button "onClick={likeClick}>Сохранить</button> */}
         {/* <button className="card__check-button"onClick={likeClick}></button> */}
       </Route>
       <Route path="/saved-movies">
-        <button className="card__delete-button">+</button>
+        <button className="card__delete-button" onClick={deleteMovie}>+</button>
       </Route>
 
       <img className="card__img"
-        src={props.card.link}
-        alt={props.card.name}
+        src={typeof props.movie.image === 'string' ? props.movie.image : `https://api.nomoreparties.co${props.movie.image.url}`}
+        alt={props.movie.nameRU}
+        onClick={handleTrailerOpenClick}
       />
       <div className="card__description">
         <h2 className="card__title">
-          movie
+          {props.movie.nameRU}
         </h2>
-        <p className="card__time-movie">22:22</p>
+        <p className="card__time-movie">{movieTime}</p>
       </div>
     </div>
   )

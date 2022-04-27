@@ -1,25 +1,48 @@
 import RegisterHeader from "./RegisterHeader/RegisterHeader";
-import React from 'react';
-import { Link } from "react-router-dom";
-import  './Register.css'
-import { useForm, useFormValidation } from "../../hooks/useFormValidation";
+import React, { useState } from 'react';
+import { Link, withRouter } from "react-router-dom";
+import './Register.css'
+import { useFormValidation } from "../../hooks/useFormValidation";
+import auth from "../../utils/Auth";
 
 function Register(props) {
 
-  const {values, handleChange, setValues, errors, isValid, isValidInput} = useFormValidation();
+  const { values, handleChange, errors, isValid, isValidInput, setValues } = useFormValidation();
+  const [registerError, setRegisterError] = useState("")
 
   // React.useEffect(() => {
   //  setValues({...values, name: values.name, email: values.email, password: values.password});
   // },[ ])
-
   function handleSubmit(e) {
     e.preventDefault()
-    
-    props.handleUpdateUser({
-      name: values.name, 
-      email: values.email,
-      password: values.password
-    })
+    props.setDisableButton(true);
+    auth.register(values.email, values.password, values.name)
+      .then((res) => {
+        console.log(res);
+        auth.login(values.email, values.password).then((res) => {
+          console.log(res);
+          if(res?.jwt) {
+            setValues({
+              email: '',
+              password: ''
+            })
+            localStorage.setItem('jwt', res?.jwt)
+            props.handleLogin()
+            props.history.push('/movies')
+          }
+        }).catch(err => {
+          console.log(err)
+        })
+        // if (res.data.email) {
+        //   props.history.push('/signin')
+        // }
+      }).catch(err => {
+        console.log(err)
+        setRegisterError("При регистрации произошла ошибка")
+      })
+      .finally(() => {
+        props.setDisableButton(false);
+      })
   }
 
   return (
@@ -27,7 +50,7 @@ function Register(props) {
       <RegisterHeader />
 
       <div className="register">
-        <form className="register__form" onSubmit={handleSubmit} autoComplete="off">
+        <form className="register__form" onSubmit={handleSubmit} autoComplete="off" noValidate>
           <label className="register__lable-input">Имя
             <input
               id="name"
@@ -79,17 +102,28 @@ function Register(props) {
               {errors.password || ""}
             </span>
           </label>
-          <button type="submit" className={`register__button ${!isValid && "register__button_disablid"}`} disabled={!isValid}>
+          <div className="refister__buttons">
+            <button type="submit" className={`register__button ${(!isValid || props.disableButton) && "register__button_disablid"}`} disabled={!isValid || props.disableButton}>
+              Зарегистрироваться
+            </button>
+            <span className="register__error-message">{registerError}</span>
+            <div className="register__signin">
+              <p>Уже зарегистрированы?</p>
+              <Link to="signin" className="register__login-link">Войти</Link>
+            </div>
+          </div>
+          {/* <button type="submit" className={`register__button ${!isValid && "register__button_disablid"}`} disabled={!isValid}>
             Зарегистрироваться
           </button>
+          <span className="register__error-message">При регистрации произошла ошибка.</span>
           <div className="register__signin">
             <p>Уже зарегистрированы?</p>
             <Link to="signin" className="register__login-link">Войти</Link>
-          </div>
+          </div> */}
         </form>
       </div>
     </>
   )
 
 }
-export default Register;
+export default withRouter(Register);

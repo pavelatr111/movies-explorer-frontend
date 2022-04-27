@@ -1,23 +1,34 @@
 
 import React from 'react';
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import RegisterHeader from '../Register/RegisterHeader/RegisterHeader';
 import './Login.css';
 import { useFormValidation } from "../../hooks/useFormValidation";
+import auth from '../../utils/Auth';
 
 function Login(props) {
   const { values, handleChange, setValues, errors, isValid, isValidInput } = useFormValidation();
 
-  // React.useEffect(() => {
-  //  setValues({...values, name: values.name, email: values.email, password: values.password});
-  // },[ ])
 
   function handleSubmit(e) {
     e.preventDefault()
-
-    props.handleUpdateUser({
-      email: values.email,
-      password: values.password
+    props.setDisableButton(true);
+    auth.login(values.email, values.password).then((res) => {
+      console.log(res);
+      if(res?.jwt) {
+        setValues({
+          email: '',
+          password: ''
+        })
+        localStorage.setItem('jwt', res?.jwt)
+        props.handleLogin()
+        props.history.push('/movies')
+      }
+    }).catch(err => {
+      console.log(err)
+    })
+    .finally(() => {
+      props.setDisableButton(false);
     })
   }
 
@@ -59,7 +70,7 @@ function Login(props) {
               {errors.password || ""}
             </span>
           </label>
-          <button type="submit" className={`login__button ${!isValid && "login__button_disablid"}`} disabled={!isValid}>
+          <button type="submit" className={`login__button ${(!isValid || props.disableButton) && "login__button_disablid"}`} disabled={props.disableButton}>
             Войти
           </button>
           <div className="login__signin">
@@ -72,4 +83,4 @@ function Login(props) {
   )
 
 }
-export default Login;
+export default withRouter(Login);

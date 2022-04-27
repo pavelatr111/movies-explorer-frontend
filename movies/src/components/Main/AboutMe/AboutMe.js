@@ -1,6 +1,6 @@
 import React from 'react';
 import './AboutMe.css'
-import Face from '../../../images/face.svg'
+import Face from '../../../images/face.jpg'
 
 function AboutMe() {
     return(
@@ -24,7 +24,7 @@ function AboutMe() {
                     </ul>
                 </div>
                 {/* <div className="about-me__photo-container"> */}
-                <img src={Face}  className="about-me__photo" alt=""></img>
+                <img src={Face}  className="about-me__photo" alt="моё фото"></img>
                 {/* </div> */}
             </div>
         </section>
